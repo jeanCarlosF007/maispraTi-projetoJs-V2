@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<title>Projeto de Cadastros </title>
+		<script>
+
+			let listaAlunos = [];
+
+			function criaCadastro (){
+				let name = document.getElementById("nomeDig").value;
+				let phone = document.getElementById("ddd").value + '-' + document.getElementById("telefoneDig").value;
+				let date = document.getElementById("nascimentoDig").value;
+				let note = document.getElementById("notaDig").value;
+				let cadastro = {nome:name, telefone:phone, data:date, nota:note};
+
+				if ((note > 10) || (note < 0) || isNaN(note)) {
+					alert('Valor de nota inválido! Utilize um valor de "0" a "10"!');
+				} else {
+
+				listaAlunos.push(cadastro);
+				alert("Aluno cadastrado com sucesso!");
+				geraLista();
+				}
+			}
+
+			function geraLista () {
+				let listaExibida = '';
+				let i = 0;
+				for (element of listaAlunos) {
+					if (element != alunoEditado) {
+
+					listaExibida += '<b>Nome: </b>' + element.nome + '<br><b>Telefone: </b>' + element.telefone + '<br><b>Data de Nascimento: </b>' + element.data + '<br><b>Nota final do Curso: </b>' + element.nota + '<br><button onclick="editar(' + i++ + ')">Editar Cadastro</button><br><br>';
+					} else {
+						listaExibida += '<b>Nome: </b><input id="nomeEditado" value="' + element.nome + '"><br><b>Telefone: </b><input id=telefoneEditado value="' + element.telefone + '" maxlength="12"><br><b>Data de Nascimento: </b><input id="dataEditada" value="' + element.data + '"><br><b>Nota final do Curso: </b><input id="notaEditada" value="' + element.nota + '"><br><button onclick="concluiEdicao(' + i++ + ')">Concluir Edição</button><br><br>';
+						alunoEditado = ''; 
+					}
+				}
+				document.getElementById("lista").innerHTML = listaExibida;
+			}
+
+			let alunoEditado = '';
+			function editar (indice) {
+				alunoEditado = listaAlunos[indice];
+				geraLista ();
+			}
+
+			function concluiEdicao (indice) {
+				let name = document.getElementById("nomeEditado").value;
+				let phone = document.getElementById("telefoneEditado").value;
+				let date = document.getElementById("dataEditada").value;
+				let note = document.getElementById("notaEditada").value;
+				let cadastro = {nome:name, telefone:phone, data:date, nota:note};
+
+				if ((note > 10) || (note < 0) || isNaN(note)) {
+					alert('Valor de nota inválido! Utilize um valor de "0" a "10"!');
+				} else {
+					listaAlunos[indice] = cadastro;
+					alert("Cadastro editado com sucesso!");
+					geraLista();
+				}	
+			}
+
+
+		</script>
+</head>
+<body>
+
+	Nome: <input id='nomeDig' placeholder='Nome Sobrenome'> <br>
+	Telefone: <input id='ddd' placeholder='ddd' maxlength='2' style='width:25px'>-<input id='telefoneDig' maxlength='9' style='width:70px'> <br>
+	Data de Nascimento: <input id='nascimentoDig' placeholder='dia/mês/ano' maxlength='10' style='width:75px'> <br>
+	Nota final do curso: <input type='number' maxvalue='10' id='notaDig' placeholder='0-10'> <br>
+	<button onclick="criaCadastro()"> Criar Cadastro </button> <br><br>
+
+	<p><b><u>Cadastros</u></b></p> <br>
+	<p id="lista"></p>
+
+</body>
+</html>
