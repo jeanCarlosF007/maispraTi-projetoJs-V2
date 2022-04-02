@@ -30,7 +30,7 @@
 				for (element of listaAlunos) {
 					if (element != alunoEditado) {
 
-					listaExibida += '<b>Nome: </b>' + element.nome + '<br><b>Telefone: </b>' + element.telefone + '<br><b>Data de Nascimento: </b>' + element.data + '<br><b>Nota final do Curso: </b>' + element.nota + '<br><button onclick="editar(' + i++ + ')">Editar Cadastro</button><br><br>';
+					listaExibida += '<b>Nome: </b>' + element.nome + '<br><b>Telefone: </b>' + element.telefone + '<br><b>Data de Nascimento: </b>' + element.data + '<br><b>Nota final do Curso: </b>' + element.nota + '<br><button onclick="editar(' + i + ')">Editar</button> <button onclick="remove('+ i++ + ')">Remover</button><br><br>';
 					} else {
 						listaExibida += '<b>Nome: </b><input id="nomeEditado" value="' + element.nome + '"><br><b>Telefone: </b><input id=telefoneEditado value="' + element.telefone + '" maxlength="12"><br><b>Data de Nascimento: </b><input id="dataEditada" value="' + element.data + '"><br><b>Nota final do Curso: </b><input id="notaEditada" value="' + element.nota + '"><br><button onclick="concluiEdicao(' + i++ + ')">Concluir Edição</button><br><br>';
 						alunoEditado = ''; 
@@ -61,6 +61,11 @@
 				}	
 			}
 
+			function remove (indice) {
+				listaAlunos.splice(indice,1);
+				alert("Cadastro removido!");
+				geraLista();
+			}
 
 		</script>
 </head>
